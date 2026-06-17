@@ -42,6 +42,12 @@ export default async function Home() {
             >
               Usuarios →
             </Link>
+            <Link
+              href="/stats"
+              className={buttonVariants({ variant: "outline" })}
+            >
+              Stats →
+            </Link>
           </div>
         </CardContent>
       </Card>
