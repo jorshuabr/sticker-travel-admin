@@ -20,6 +20,7 @@ export default function AuthedLayout({
           <nav className="flex items-center gap-1 text-sm">
             <NavLink href="/moderation">Moderación</NavLink>
             <NavLink href="/users">Usuarios</NavLink>
+            <NavLink href="/stats">Stats</NavLink>
             <form action="/logout" method="post" className="ml-2">
               <button
                 type="submit"
