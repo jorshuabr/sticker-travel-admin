@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# sticker-travel-admin
 
-## Getting Started
+Panel de administración web para **sticker-travel-app**: cola de moderación, gestión de usuarios restringidos y estadísticas básicas. Repositorio gemelo del de la app mobile (`sticker-travel-app`), conectado al mismo proyecto Supabase.
 
-First, run the development server:
+## Stack
+
+- **Next.js 15** (App Router) + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui** (componentes con Radix subyacente)
+- **@supabase/ssr** + **@supabase/supabase-js** para auth y queries
+- **Deploy**: Cloudflare Pages (free tier)
+
+## Setup local
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
+# Rellenar NEXT_PUBLIC_SUPABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY + SUPABASE_SERVICE_ROLE_KEY
+# (los valores los imprime `npx supabase status` desde el repo sticker-travel-app)
+
+npm install
+npm run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Convenciones
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Auth gate**: solo usuarios con rol `moderator` pueden acceder.
+- **No exponer service_role al cliente**: usar solo en route handlers o server actions.
+- **Git workflow**: feature branches + PRs, igual que en el repo de la app mobile.
+- **Idioma del UI**: español como primario.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Estructura
 
-## Learn More
+```
+app/                # rutas Next.js App Router
+  page.tsx          # landing actual (placeholder)
+components/ui/      # shadcn/ui components
+lib/                # helpers, Supabase clients, etc.
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] F1 Bootstrap Next.js + TS + Tailwind + shadcn/ui
+- [ ] F2 Supabase client + auth + admin gate
+- [ ] F3 Cola de moderación (flagged + botones aprobar/rechazar/IA)
+- [ ] F4 Restricted users (lista + restrict/unrestrict)
+- [ ] F5 Stats básicos (KPIs + charts)
+- [ ] F6 Deploy Cloudflare Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Relación con sticker-travel-app
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| | sticker-travel-app | sticker-travel-admin |
+|---|---|---|
+| Plataforma | Android (iOS futuro) | Web |
+| Stack | Flutter + Dart | Next.js + TypeScript |
+| Repo | jorshuabr/sticker-travel-app | jorshuabr/sticker-travel-admin |
+| Audiencia | Usuarios finales (viajeros) | Moderadores |
+| DB | Mismo Supabase project | Mismo Supabase project |
+| Auth | Sign in con email/Apple/Google | Email + role `moderator` |
