@@ -1,5 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
@@ -12,7 +19,9 @@ export default async function Home() {
     <main className="min-h-screen flex flex-col">
       <header className="border-b bg-background">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="font-semibold">Sticker Travel — Admin</div>
+          <Link href="/" className="font-semibold hover:underline">
+            Sticker Travel — Admin
+          </Link>
           <form action="/logout" method="post">
             <Button variant="outline" size="sm" type="submit">
               Cerrar sesión
@@ -30,11 +39,19 @@ export default async function Home() {
               <code className="text-xs">{user?.id}</code>
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm text-muted-foreground">
-            <p>
-              Próximamente: cola de moderación, gestión de usuarios
-              restringidos y estadísticas básicas.
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              Panel de administración. Próximamente más secciones (usuarios
+              restringidos, stats).
             </p>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                href="/moderation"
+                className={buttonVariants({ variant: "default" })}
+              >
+                Cola de moderación →
+              </Link>
+            </div>
           </CardContent>
         </Card>
       </section>
