@@ -34,3 +34,16 @@ export const REJECTION_REASONS = [
 ] as const;
 
 export type RejectionReason = typeof REJECTION_REASONS[number]["value"];
+
+/** Filas de la view restricted_users (PLAN §15). Incluye usuarios con
+ *  restricted_at fijado Y los que estan en zona de alerta (trust_score < 0.5). */
+export interface RestrictedUserRow {
+  user_id: string;
+  handle: string | null;
+  display_name: string | null;
+  trust_score: number | null;
+  restricted_at: string | null;
+  restricted_reason: string | null;
+  rejected_count: number;
+  verified_count: number;
+}
