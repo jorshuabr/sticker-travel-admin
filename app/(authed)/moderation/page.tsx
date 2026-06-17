@@ -1,6 +1,4 @@
-import Link from "next/link";
 import Image from "next/image";
-import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -56,34 +54,9 @@ export default async function ModerationPage() {
   const { rows, error } = await loadQueue();
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <header className="border-b bg-background">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
-          <Link href="/" className="font-semibold hover:underline">
-            Sticker Travel — Admin
-          </Link>
-          <nav className="flex items-center gap-2 text-sm">
-            <Link
-              href="/moderation"
-              className={buttonVariants({ variant: "ghost", size: "sm" })}
-            >
-              Moderación
-            </Link>
-            <form action="/logout" method="post">
-              <button
-                type="submit"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
-              >
-                Cerrar sesión
-              </button>
-            </form>
-          </nav>
-        </div>
-      </header>
-
-      <section className="flex-1 max-w-5xl mx-auto w-full px-6 py-10 space-y-6">
-        <div>
-          <h1 className="text-2xl font-semibold">Cola de moderación</h1>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-semibold">Cola de moderación</h1>
           <p className="text-sm text-muted-foreground">
             Recuerdos en estado <code className="text-xs">flagged</code> (≥3 reports o
             escalados manualmente). Ordenados FIFO por <code className="text-xs">received_at</code>.
@@ -164,8 +137,7 @@ export default async function ModerationPage() {
             </Card>
           ))}
         </div>
-      </section>
-    </main>
+    </div>
   );
 }
 
